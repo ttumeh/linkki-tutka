@@ -1,43 +1,73 @@
-"use strict";
+var new_circle;
+let map;
 
 
 window.addEventListener("load", function() {
-    get_bus_locations();
+    init_map();
+    get_bus_locations(map);
 });
 
+
 /**
- * Function handles fetching bus locations
+ * Initialize LeafLet map 
+ * @returns Return map object
+ */
+function init_map() {
+    // Set view to Jyväskylä center
+    map = L.map('map').setView([62.242603, 25.747257], 13);
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    return map;
+}
+
+
+/**
+ * Function handles fetching bus and rendering locations
  */
 function get_bus_locations() {
     // Set interval to fetch bus location data every 3 seconds
-    setInterval(async function() {
+    setInterval(function() {
     // Fetch bus location data from the server
     fetch('http://127.0.0.1:5000/bus_locations')
         // Return promise
         .then(function(response) {
-            return response.json();
+            return (response.json());
         })
         // Render bus locations
-        .then(async function(data) {
-            let vehicle_div = document.getElementById("vehicle_div");
+        .then(function(data) {
+            map.eachLayer(function (layer) {
+                if (layer._url != "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png") {
+                    console.log(layer);
+                    map.removeLayer(layer);
+            }
+            });
+            // Create tileLayer for the map
+            L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+            // Iterate through data keys and render a circle on the map
             for (let y = 0; y<Object.keys(data).length; y++) {
-                let found = false;
-                let vehicles = document.getElementsByClassName('vehicle');
-                // Check if certain bus is already rendered
-                for (let x= 0; x<vehicles.length; x++) {
-                    if (vehicles[x].id==data[y]['id']) {
-                        vehicles[x].textContent=[data[y]['id'], data[y]['latitude'], data[y]['longitude']];
-                        found = true;
-                    }
+                // Set the color of the circle depending on status of the bus
+                var color = 'grey';
+                if (data[y]['status'] == 0) {
+                    color = 'yellow';
                 }
-                // If bus not rendered, create new object
-                if (found == false) {
-                    let longitude = document.createElement('div');
-                    longitude.className="vehicle";
-                    longitude.id=data[y]['id'];
-                    longitude.textContent = [data[y]['id'], data[y]['latitude'], data[y]['longitude']];
-                    vehicle_div.append(longitude);
+                if (data[y]['status'] == 1) {
+                    color = 'red';
                 }
+                else if (data[y]['status'] == 2) {
+                    color = 'green';
+                }
+                // Create circle object and add to map
+                new_circle = L.circle([data[y]['latitude'], data[y]['longitude']], {
+                    color: color,
+                    radius: 6,
+                    id: data[y]['id']
+                }).addTo(map);
+                new_circle.bindPopup("LINJA: " + data[y]['label']);
             }
         })
         .catch(error => console.log('Virhe', error));
