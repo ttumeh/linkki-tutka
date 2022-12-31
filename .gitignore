@@ -1,3 +1,8 @@
 config.py
 /venv
 words.txt
+routes.txt
+coords.json
+routes.json
+/static/routes
+/static/images

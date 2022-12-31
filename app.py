@@ -1,10 +1,11 @@
 import json
 import requests
 from requests.auth import HTTPBasicAuth
-from flask import Flask, render_template, make_response
+from flask import Flask, render_template
 from google.transit import gtfs_realtime_pb2
 import config
-import random
+import csv
+
 
 app = Flask(__name__)
 CLIENT_ID = config.CLIENT_ID
@@ -14,26 +15,28 @@ CLIENT_SECRET = config.CLIENT_SECRET
 @app.route('/')
 def homepage():
     """Flask-function for the main page"""
-    bckgrd = fancy_background()
-    return render_template('index.html', bckgrd=bckgrd)
+    return render_template('index.html')
 
 
-def fancy_background():
-    """Flask-function creates fancy background text"""
-    x = 0
-    random_lines = ""
-    while x<10:
-        random_lines += random_lines + " " + (random.choice(open("static/words.txt").readlines()))
-        x=x+1
-    return random_lines
+def csv_to_json():
+    """Function converts GTFS Static Package to JSON format"""
+    data_dict = {}
+    with open('static/routes.txt', encoding = 'utf-8') as csv_file_handler:
+        csv_reader = csv.DictReader(csv_file_handler)
+        for rows in csv_reader:
+            key = rows['route_id']
+            data_dict[key] = rows
+        with open('static/routes.json', 'w', encoding = 'utf-8') as json_file_handler:
+            json_file_handler.write(json.dumps(data_dict, indent = 4))
 
 
-@app.route('/bus_locations', methods=['GET'])
-def fetch_bus_locations():
+@app.route('/bus_locations/<city>', methods=['GET'])
+def fetch_bus_locations(city):
     """Flask function for fetching GTFS feed and returning it to client.js"""
+    print(city)
     # Initialize feed
     feed = gtfs_realtime_pb2.FeedMessage()
-    url = f"https://data.waltti.fi/jyvaskyla/api/gtfsrealtime/v1.0/feed/vehicleposition"
+    url = f"https://data.waltti.fi/{city}/api/gtfsrealtime/v1.0/feed/vehicleposition"
     response = requests.get(url, auth=HTTPBasicAuth(CLIENT_ID, CLIENT_SECRET))
     feed.ParseFromString(response.content)
     # Initialize data json
@@ -47,6 +50,14 @@ def fetch_bus_locations():
         data[x]['latitude'] = entity.vehicle.position.latitude
         data[x]['longitude'] = entity.vehicle.position.longitude
         data[x]['status'] = entity.vehicle.current_status
+        with open('static/routes.json', 'r') as route_data:
+            json_data = json.load(route_data)
+            try:
+                data[x]['route_short_name']=json_data[entity.vehicle.trip.route_id]['route_short_name']
+                data[x]['route_long_name']=json_data[entity.vehicle.trip.route_id]['route_long_name']
+            except:
+                data[x]['route_short_name']="LINJAA EI LÖYDY"
+                data[x]['route_long_name']="LINJAA EI LÖYDY"
         x=x+1
     json_data = json.dumps(data)
     return json_data
