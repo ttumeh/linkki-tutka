@@ -4,6 +4,26 @@ let map;
 
 window.addEventListener("load", function() {
     init_map();
+    const checkbox = document.getElementById('checkbox');
+    checkbox.addEventListener('change', () => {
+        document.body.classList.toggle('dark');
+        map.eachLayer(function (layer) {
+            if (layer._url == 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png') {
+                map.removeLayer(layer);
+                L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                }).addTo(map);
+            }
+            else if (layer._url == 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png') { 
+                map.removeLayer(layer);
+                L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                }).addTo(map);
+            }
+        });
+    });
     get_bus_locations();
 });
 
@@ -15,13 +35,13 @@ window.addEventListener("load", function() {
 function init_map() {
     // Set view to Jyväskylä center
     map = L.map('map').setView([62.242603, 25.747257], 13);
-    L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
     return map;
 }
-
+//https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png
 
 /**
  * Function handles fetching bus and rendering locations
@@ -46,21 +66,16 @@ async function get_bus_locations() {
         // Render bus locations
         .then(function(data) {
             map.eachLayer(function (layer) {
-                if (layer._url != "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png") {
+                if (layer._url != "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png" && layer._url != "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png") {
                     map.removeLayer(layer);
             }
             });
-            // Create tileLayer for the map
-            L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            }).addTo(map);
             // Iterate through data keys and render a circle on the map
             for (let y = 0; y<Object.keys(data).length; y++) {
                 // Set the color of the circle depending on status of the bus
                 var color = 'grey';
                 if (data[y]['status'] == 0) {
-                    color = 'yellow';
+                    color = 'orange';
                     data[y]['status'] = 'LÄHESTYY PYSÄKKIÄ';
                 }
                 if (data[y]['status'] == 1) {
