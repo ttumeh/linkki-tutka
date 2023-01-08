@@ -1,4 +1,4 @@
-Waltti Public GTFS Realtime API:in (https://waltti.fi/avoin-data/) perustuva SPA, joka näyttää tietokannassa olevat linja-autot reaaliajassa
+Waltti Public GTFS Realtime API:in (https://waltti.fi/avoin-data/) perustuva sovellus, joka näyttää tietokannassa olevat linja-autot reaaliajassa
 
 ![Dark theme](https://user-images.githubusercontent.com/89652218/211195919-895cd695-6df3-4931-a8ef-eeac9e5773bc.png)
 
