@@ -6,3 +6,4 @@ coords.json
 routes.json
 /static/routes
 /static/images
+/__pycache__
