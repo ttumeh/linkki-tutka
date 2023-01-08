@@ -17,20 +17,19 @@ body {
 
 
 .sidenav {
-   height: 100%; /* 100% Full-height */
-   width: 0; /* 0 width - change this with JavaScript */
-   position: fixed; /* Stay in place */
-   z-index: 1; /* Stay on top */
-   top: 0; /* Stay at the top */
+   height: 100%;
+   width: 0;
+   position: fixed;
+   z-index: 1;
+   top: 0;
    left: 0;
-   background-color: #FA633D; /* Black*/
-   overflow-x: hidden; /* Disable horizontal scroll */
-   padding-top: 60px; /* Place content 60px from the top */
-   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+   background-color: #004919;
+   overflow-x: hidden;
+   padding-top: 60px; 
+   transition: 0.5s; 
 }
 
 
-/* The navigation menu links */
 .sidenav a {
    padding: 8px 8px 8px 32px;
    text-decoration: none;
@@ -42,19 +41,19 @@ body {
 
 
 body.dark .sidenav {
-   height: 100%; /* 100% Full-height */
-   width: 0; /* 0 width - change this with JavaScript */
-   position: fixed; /* Stay in place */
-   z-index: 1; /* Stay on top */
-   top: 0; /* Stay at the top */
+   height: 100%;
+   width: 0;
+   position: fixed;
+   z-index: 1;
+   top: 0;
    left: 0;
-   background-color: rgb(27, 27, 27); /* Black*/
-   overflow-x: hidden; /* Disable horizontal scroll */
-   padding-top: 60px; /* Place content 60px from the top */
-   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+   background-color: rgb(27, 27, 27);
+   overflow-x: hidden;
+   padding-top: 60px;
+   transition: 0.5s;
 }
 
-/* The navigation menu links */
+
 body.dark .sidenav a {
    padding: 8px 8px 8px 32px;
    text-decoration: none;
@@ -65,7 +64,6 @@ body.dark .sidenav a {
 }
 
 
-/* Dropdown Button */
 body.dark .dropbtn {
    background-color: #131313;
    color: white;
@@ -75,7 +73,6 @@ body.dark .dropbtn {
 }
 
 
-/* Dropdown Button */
 .dropbtn {
    background-color: #F5F6F7;
    color: #000000;
@@ -85,11 +82,9 @@ body.dark .dropbtn {
 }
 
 
-/* Change the background color of the dropdown button when the dropdown content is shown */
 body.dark .dropdown:hover .dropbtn {background-color: #292929; border-radius:3px;} 
 
 
-/* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {background-color: #d4d4d4; border-radius:3px;} 
 
 
@@ -101,21 +96,20 @@ body.dark .dropdown:hover .dropbtn {background-color: #292929; border-radius:3px
     left:0; bottom: 0; right: 0; z-index: 0;
  }
    
-/* The container <div> - needed to position the dropdown content */
+
 .dropdown {
    position: relative;
    display: inline-block;
 }
 
   
-   /* The container <div> - needed to position the dropdown content */
 .header-r {
    margin-right:2%;
    float:right;
    color:rgb(20, 20, 20)
 }
    
-   /* Dropdown Content (Hidden by Default) */
+
 .header-r-content {
    display: none;
    position: absolute;
@@ -125,7 +119,7 @@ body.dark .dropdown:hover .dropbtn {background-color: #292929; border-radius:3px
    z-index: 1;
 }
    
-   /* Links inside the dropdown */
+
 .header-r-content a {
    color: black;
    padding: 12px 16px;
@@ -135,17 +129,16 @@ body.dark .dropdown:hover .dropbtn {background-color: #292929; border-radius:3px
 }
 
    
-   /* When you mouse over the navigation links, change their color */
 body.dark .sidenav a:hover {
    color: #f1f1f1;
 }
 
- /* When you mouse over the navigation links, change their color */
+
 .sidenav a:hover {
    color: #E4E8ED;
 }
    
-   /* Position and style the close button (top right corner) */
+
 .sidenav .closebtn {
    position: absolute;
    top: 0;
@@ -154,17 +147,18 @@ body.dark .sidenav a:hover {
    margin-left: 50px;
 }
    
-   /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
-   #main {
-     transition: margin-left .5s;
-     padding: 20px;
-   }
+
+#main {
+   transition: margin-left .5s;
+   padding: 20px;
+}
    
-   /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-   @media screen and (max-height: 450px) {
-     .sidenav {padding-top: 15px;}
-     .sidenav a {font-size: 18px;}
-   } 
+
+@media screen and (max-height: 450px) {
+   .sidenav {padding-top: 15px;}
+   .sidenav a {font-size: 18px;}
+} 
+
 
 .body.dark #dash {
    border: 1px solid #555555;;
@@ -174,6 +168,7 @@ body.dark .sidenav a:hover {
    margin-bottom:5%;
 }
 
+
 #dash {
    border: 1px solid #E4E8ED;
    width: 180px;
@@ -182,14 +177,17 @@ body.dark .sidenav a:hover {
    margin-bottom:5%;
 }
 
+
 .side_container {
    margin-bottom: 10%;
 }
+
 
 .checkbox {
    opacity: 0;
  }
  
+
 body.dark .label {
    caret-color: transparent;
    width: 56px;
@@ -203,11 +201,12 @@ body.dark .label {
    position: relative;
  }
 
+
 .label {
    caret-color: transparent;
    width: 56px;
    height: 20px;
-   background-color:#FA633D;
+   background-color:#007228;
    display: flex;
    border-radius:50px;
    align-items: center;
@@ -216,6 +215,7 @@ body.dark .label {
    position: relative;
  }
  
+
 body.dark .ball {
    width: 18px;
    height: 18px;
@@ -225,6 +225,7 @@ body.dark .ball {
    border-radius: 50%;
    transition: transform 0.2s linear;
 }
+
 
 .ball {
    width: 18px;
@@ -236,18 +237,34 @@ body.dark .ball {
    transition: transform 0.2s linear;
 }
  
+
  /*  target the elemenent after the label*/
- .checkbox:checked + .label .ball{
+.checkbox:checked + .label .ball{
    transform: translateX(200%);
    background-color: #292929;
- }
+}
  
- .fa-moon {
+
+.fa-moon {
    color: black;
    margin-left:5%;
- }
+}
  
- .fa-sun {
+
+.fa-sun {
    color: black;
    margin-right:3%;
+}
+
+.bus-icon{
+   width: 24px !important;
+   height: 24px !important;
+   margin-left: -12px;
+   margin-top: -12px;
+   border-radius: 18px;
+   border: 2px solid #004919;
+   text-align: center;
+   color: #005e1c;
+   background-color: rgb(255, 255, 255);
+   font-size: 16px;
  }

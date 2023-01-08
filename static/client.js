@@ -4,28 +4,40 @@ let map;
 
 window.addEventListener("load", function() {
     init_map();
+    set_theme();
+    get_bus_locations();
+});
+
+
+/**
+ * Function to handle changing theme from light to dark mode
+ */
+function set_theme() {
     const checkbox = document.getElementById('checkbox');
     checkbox.addEventListener('change', () => {
         document.body.classList.toggle('dark');
         map.eachLayer(function (layer) {
-            if (layer._url == 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png') {
+            if (layer.id == 'map-light') {
                 map.removeLayer(layer);
-                L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+                var tileLayer_dark = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
                 maxZoom: 19,
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                }).addTo(map);
+                });
+                tileLayer_dark.id = "map-dark";
+                tileLayer_dark.addTo(map);
             }
-            else if (layer._url == 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png') { 
+            else if (layer.id == 'map-dark') { 
                 map.removeLayer(layer);
-                L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+                var tileLayer_light = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
                 maxZoom: 19,
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                }).addTo(map);
+                });
+                tileLayer_light.id = "map-light";
+                tileLayer_light.addTo(map);
             }
         });
     });
-    get_bus_locations();
-});
+}
 
 
 /**
@@ -35,16 +47,19 @@ window.addEventListener("load", function() {
 function init_map() {
     // Set view to Jyväskylä center
     map = L.map('map').setView([62.242603, 25.747257], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+    var tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
+    });
+    tileLayer.id="map-light";
+    tileLayer.addTo(map);
+    
     return map;
 }
-//https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png
+
 
 /**
- * Function handles fetching bus and rendering locations
+ * Function handles fetching bus data and rendering locations
  */
 async function get_bus_locations() {
     let params = new Proxy(new URLSearchParams(window.location.search), {
@@ -66,7 +81,7 @@ async function get_bus_locations() {
         // Render bus locations
         .then(function(data) {
             map.eachLayer(function (layer) {
-                if (layer._url != "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png" && layer._url != "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png") {
+                if (layer.id!='map-dark' && layer.id != 'map-light') {
                     map.removeLayer(layer);
             }
             });
@@ -87,10 +102,12 @@ async function get_bus_locations() {
                     data[y]['status'] = "AJOSSA";
                 }
                 // Create circle object and add to map
-                new_circle = L.circle([data[y]['latitude'], data[y]['longitude']], {
-                    color: color,
-                    radius: 6,
-                    id: data[y]['id']
+                new_circle = L.marker([data[y]['latitude'], data[y]['longitude']], {
+                    icon: L.divIcon({
+                        className: 'bus-icon',
+                        html: data[y]['route_short_name'],
+                        id: data[y]['id']
+                    })
                 }).addTo(map);
                 var new_popup = L.popup({
                     closeOnClick: false,
@@ -113,18 +130,21 @@ async function get_bus_locations() {
 }
 
 
+/**
+ * Function to pass coordinates of selected city
+ * @param {*} city selected city
+ * @returns returns array of coordinates for the selected city [lat,lon]
+ */
 async function city_coords(city) {
-    return fetch("static/coords.json")
-    .then(response => response.json())
-    .then(function(data) {
-        coord_list = [];
-        for (let x = 0; x<Object.keys(data[0]).length; x++) {
-            console.log(data[0][x]['city'], city);
-            if (data[0][x]['city'] == city) {
-                coord_list.push(data[0][x]['lat']);
-                coord_list.push(data[0][x]['lon']);
-            }
+    const response = await fetch("static/coords.json");
+    const data = await response.json();
+    coord_list = [];
+    for (let x = 0; x < Object.keys(data[0]).length; x++) {
+        console.log(data[0][x]['city'], city);
+        if (data[0][x]['city'] == city) {
+            coord_list.push(data[0][x]['lat']);
+            coord_list.push(data[0][x]['lon']);
         }
-        return coord_list;
-    });
+    }
+    return coord_list;
 }

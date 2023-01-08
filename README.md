@@ -1,0 +1,1 @@
+Waltti Public GTFS Realtime API:in (https://waltti.fi/avoin-data/) perustuva SPA, joka näyttää tietokannassa olevat linja-autot reaaliajassa
