@@ -1,0 +1,372 @@
+body.dark {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Verdana, Arial, sans-serif;
+    background-color:rgb(20, 20, 20);
+}
+
+
+body {
+   width: 100vw;
+   height: 100vh;
+   overflow: hidden;
+   font-family: Verdana, Arial, sans-serif;
+   background-color:#F5F6F7;
+}
+
+
+.sidenav {
+   height: 100%;
+   width: 0;
+   position: fixed;
+   z-index: 1;
+   top: 0;
+   left: 0;
+   background-color: #01792b;
+   overflow-x: hidden;
+   padding-top: 60px; 
+   transition: 0.5s; 
+}
+
+
+.sidenav a {
+   padding: 8px 8px 8px 32px;
+   text-decoration: none;
+   font-size: medium;
+   color: #F5F6F7;
+   display: block;
+   transition: 0.3s;
+}
+
+
+body.dark .sidenav {
+   height: 100%;
+   width: 0;
+   position: fixed;
+   z-index: 1;
+   top: 0;
+   left: 0;
+   background-color: rgb(20, 20, 20);
+   overflow-x: hidden;
+   padding-top: 60px;
+   transition: 0.5s;
+}
+
+
+body.dark .sidenav a {
+   padding: 8px 8px 8px 32px;
+   text-decoration: none;
+   font-size: medium;
+   color: #818181;
+   display: block;
+   transition: 0.3s;
+}
+
+
+body.dark .dropbtn {
+   background-color: #131313;
+   color: white;
+   padding: 16px;
+   font-size: 16px;
+   border: none;
+}
+
+
+.dropbtn {
+   background-color: #F5F6F7;
+   color: #000000;
+   padding: 16px;
+   font-size: 16px;
+   border: none;
+   position: relative
+}
+
+
+body.dark .dropdown:hover .dropbtn {background-color: #313131; border-radius:3px;} 
+
+
+.dropdown:hover .dropbtn {background-color: #d4d4d4; border-radius:3px;} 
+
+
+#map {
+   filter: blur(4px);
+   height: 92vh;
+   width:100vw;
+   overflow: hidden;
+   position:absolute;
+   left:0; bottom: 0; right: 0; z-index: 0;
+}
+   
+
+.dropdown {
+   position: relative;
+   display: inline-block;
+}
+
+  
+.header-r {
+   margin-right:2%;
+   float:right;
+   color:rgb(20, 20, 20)
+}
+   
+
+.header-r-content {
+   display: none;
+   position: absolute;
+   background-color: #f1f1f1;
+   min-width: 160px;
+   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+   z-index: 1;
+}
+   
+
+.header-r-content a {
+   color: black;
+   padding: 12px 16px;
+   text-decoration: none;
+   display: block;
+   align-items: center;
+}
+
+   
+body.dark .sidenav a:hover {
+   color: #f1f1f1;
+}
+
+
+.sidenav a:hover {
+   color: #E4E8ED;
+}
+   
+
+.sidenav .closebtn {
+   position: absolute;
+   top: 0;
+   right: 25px;
+   font-size: 36px;
+   margin-left: 50px;
+}
+   
+
+#main {
+   transition: margin-left .5s;
+   padding: 20px;
+}
+   
+
+@media screen and (max-height: 450px) {
+   .sidenav {padding-top: 15px;}
+   .sidenav a {font-size: 18px;}
+} 
+
+
+.body.dark #dash {
+   border: 1px solid #555555;;
+   width: 180px;
+   align-items:center;
+   margin: auto;
+   margin-bottom:5%;
+}
+
+
+#dash {
+   border: 1px solid #E4E8ED;
+   width: 180px;
+   align-items:center;
+   margin: auto;
+   margin-bottom:5%;
+}
+
+
+.side_container {
+   margin-bottom: 10%;
+}
+
+
+.checkbox {
+   opacity: 0;
+ }
+ 
+
+body.dark .label {
+   caret-color: transparent;
+   width: 56px;
+   height: 20px;
+   background-color:rgb(207, 207, 207);
+   display: flex;
+   border-radius:50px;
+   align-items: center;
+   justify-content: space-between;
+   margin: auto;
+   position: relative;
+ }
+
+
+.label {
+   caret-color: transparent;
+   width: 56px;
+   height: 20px;
+   background-color:#01792b;
+   display: flex;
+   border-radius:50px;
+   align-items: center;
+   justify-content: space-between;
+   margin: auto;
+   position: relative;
+ }
+ 
+
+body.dark .ball {
+   width: 18px;
+   height: 18px;
+   background-color: rgb(26, 26, 26);
+   position: absolute;
+   left: 2px;
+   border-radius: 50%;
+   transition: transform 0.2s linear;
+}
+
+
+.ball {
+   width: 18px;
+   height: 18px;
+   background-color: rgb(255, 255, 255);
+   position: absolute;
+   left: 2px;
+   border-radius: 50%;
+   transition: transform 0.2s linear;
+}
+ 
+
+ /*  target the elemenent after the label*/
+.checkbox:checked + .label .ball{
+   transform: translateX(200%);
+   background-color: #292929;
+}
+ 
+
+.fa-moon {
+   color: black;
+   margin-left:5%;
+}
+ 
+
+.fa-sun {
+   color: black;
+   margin-right:3%;
+}
+
+.bus-icon{
+   width: 16px !important;
+   height: 16px !important;
+   margin-left: -12px;
+   margin-top: -12px;
+   border: none;
+   border-radius:18px;
+   text-align: center;
+   color: #ffffff;
+   background-color: rgb(0, 80, 20);
+   font-size: 10px;
+   padding: 2px;
+ }
+
+ body.dark .bus-icon{
+   width: 16px !important;
+   height: 16px !important;
+   margin-left: -12px;
+   margin-top: -12px;
+   text-align: center;
+   border-radius:18px;
+   border: none;
+   color: #ffffff;
+   background-color: #00973a;
+   font-size: 10px;
+   padding: 2px;
+ }
+
+ #loader {
+   border: 16px solid #f3f3f3; /* Light grey */
+   border-top: 16px solid #01792b;
+   border-radius: 50%;
+   width: 60px;
+   height: 60px;
+   margin-top:40vh;
+   margin-left:48vw;
+   text-align:center;
+   animation: spin 2s linear infinite;
+   transition: visibility 0s, opacity 0.5s linear;
+ }
+
+body.dark #loader {
+   border: 16px solid #f3f3f3; /* Light grey */
+   border-top: 16px solid #535353; /* Blue */
+   border-radius: 50%;
+   width: 60px;
+   height: 60px;
+   margin-top:40vh;
+   margin-left:48vw;
+   text-align:center;
+   animation: spin 2s linear infinite;
+   transition: visibility 0s, opacity 0.5s linear;
+ }
+ 
+ @keyframes spin {
+   0% { transform: rotate(0deg); }
+   100% { transform: rotate(360deg); }
+ }
+
+ .animate-bottom {
+   position: relative;
+   -webkit-animation-name: animatebottom;
+   -webkit-animation-duration: 1s;
+   animation-name: animatebottom;
+   animation-duration: 1s
+ }
+
+ @media screen and (max-width: 767px) {
+   body {
+     overflow-x: hidden;
+   }
+   
+   .sidenav {
+     width: 80%;
+     padding-top: 50px;
+   }
+   
+   .sidenav a {
+     padding: 10px 10px 10px 30px;
+   }
+   
+   .header-r {
+     margin-right: 0;
+   }
+   
+   .header-r-content {
+     right: 0;
+   }
+   
+   #main {
+     margin-left: 0;
+   }
+   
+   #map {
+     height: 50vh;
+   }
+   
+   #dash, .side_container {
+     margin-bottom: 40px;
+   }
+   
+   .label {
+     width: 40px;
+     height: 14px;
+   }
+   
+   .ball {
+     width: 10px;
+     height: 10px;
+     left: 0;
+   }
+ }

@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+  integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+  crossorigin=""/>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+  integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+  crossorigin=""></script>
+  <link rel="stylesheet" href="static/style.css" type="text/css" />
+  <script src="/static/client.js" type="text/javascript">
+  </script>
+  <script type="text/javascript" src="static/coords.json"></script>
+  <script>
+    /* Set the width of the side navigation to 250px */
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+  document.getElementById("map").style.width = "1670px";
+  document.getElementById("map").style.left = "250px";
+  dropdown = document.getElementsByClassName("dropdown");
+  dropdown[0].style.left="250px";
+  var dropbtn = document.getElementsByClassName("dropbtn")
+  dropbtn[0].setAttribute("onclick", "closeNav()");
+  dropbtn[0].textContent="\u2716";
+}
+
+/* Set the width of the side navigation to 0 */
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("map").style.width = "100vw";
+  document.getElementById("map").style.left = "0";
+  var dropdown = document.getElementsByClassName("dropdown");
+  dropdown[0].style.left="0";
+  var dropbtn = document.getElementsByClassName("dropbtn")
+  dropbtn[0].setAttribute("onclick", "openNav()");
+  dropbtn[0].textContent="\u2630";
+} 
+  </script>
+</script>
+<meta charset="utf-8"/>
+  <title>Linkkitutka</title>
+</head>
+<body>
+  <div class="dropdown">
+    <button class="dropbtn" onclick="openNav()">&#9776;</button>
+  </div>
+  <div class="sidenav" id="mySidenav">
+    <div class="side_container">
+    <a style="font-size:medium">Kartat</a>
+    <p id="dash"></p>
+    <a href="https://artful-athlete-381513.ew.r.appspot.com/?city=joensuu">Joensuu</a>
+      <a href="https://artful-athlete-381513.ew.r.appspot.com/?city=jyvaskyla">Jyväskylä</a>
+      <a href="https://artful-athlete-381513.ew.r.appspot.com/?city=lahti">Lahti</a>
+      <a href="https://artful-athlete-381513.ew.r.appspot.com/?city=oulu">Oulu</a>
+      <a href="https://artful-athlete-381513.ew.r.appspot.com/?city=tampere">Tampere</a>
+    </div>
+    <div class="side_container">
+      <a style="font-size:medium">Linkit</a>
+      <p id="dash"></p>
+      <a href="https://github.com/ttumeh/linkki-tutka">Github</a>
+      </div>
+  </div>
+  <div class="header-r">
+    <input type="checkbox" class="checkbox" id="checkbox">
+    <label for="checkbox" class="label">
+    <i class="fas fa-moon"></i>
+    <i class='fas fa-sun'></i>
+    <div class='ball'>
+    </label>
+  </div>
+</div>
+  <div id="map"></div>
+  <div id="loader"></div>
+</body>
+</html>

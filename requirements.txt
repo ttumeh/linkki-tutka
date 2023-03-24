@@ -1,0 +1,6 @@
+Flask==2.1.0
+protobuf==3.20.*
+requests.auth
+requests
+gtfs-realtime-bindings
+flask_cors
