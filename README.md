@@ -1,3 +1,3 @@
 Waltti Public GTFS Realtime API:in (https://waltti.fi/avoin-data/) perustuva sovellus, joka näyttää tietokannassa olevat linja-autot reaaliajassa
 
-https://artful-athlete-381513.ew.r.appspot.com/?city=jyvaskyla
+Live example: https://artful-athlete-381513.ew.r.appspot.com/?city=jyvaskyla
